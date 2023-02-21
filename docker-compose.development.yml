@@ -1,18 +1,18 @@
-version: '3.7'
+version: "3.7"
 services:
-  nginx:
-    image: "${PROJECT_NAME}/nginx:development"
-    container_name: ${PROJECT_NAME}-nginx
-    build: 
-      context: ./
-      dockerfile: ./containers/nginx/Dockerfile
-    depends_on:
-      - ruby
-    tty: true
-    ports:
-      - 80:80
-    volumes:
-      - ./artifacts/nginx/:/var/log/nginx:cached
+  # nginx:
+  #   image: "${PROJECT_NAME}/nginx:development"
+  #   container_name: ${PROJECT_NAME}-nginx
+  #   build:
+  #     context: ./
+  #     dockerfile: ./containers/nginx/Dockerfile
+  #   depends_on:
+  #     - ruby
+  #   tty: true
+  #   ports:
+  #     - 80
+  #   volumes:
+  #     - ./artifacts/nginx/:/var/log/nginx:cached
   ruby:
     image: "${PROJECT_NAME}/ruby:development"
     container_name: ${PROJECT_NAME}-ruby
@@ -23,7 +23,7 @@ services:
       dockerfile: ./containers/ruby/Dockerfile
       target: development
     ports:
-      - 13030:13030
+      - 3000
     volumes:
       - ${APP_PATH}:/app:cached
     environment:
@@ -45,9 +45,9 @@ services:
       context: ./
       dockerfile: ./containers/postgres/Dockerfile
     ports:
-      - ${DB_PORT}:5432
+      - 5432
     volumes:
-      - postgres_volume:/var/lib/postgresql/data
+      - hackney_ways_into_work_db_volume:/var/lib/postgresql/data
 
 volumes:
-  postgres_volume:
+  hackney_ways_into_work_db_volume:

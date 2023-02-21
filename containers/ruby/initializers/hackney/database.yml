@@ -1,0 +1,13 @@
+defaults: &defaults
+  adapter: postgresql
+
+development:
+  <<: *defaults
+  url: <%= ENV["DATABASE_URL"].gsub('?', '_development?') %>
+
+test: &TEST
+  <<: *defaults
+  url: <%= ENV["DATABASE_URL"].gsub('?', '_test?') %>
+
+cucumber:
+  <<: *TEST

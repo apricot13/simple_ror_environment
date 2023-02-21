@@ -64,3 +64,30 @@ In the original repository there is an init method to create a new app from scra
 
 **nginx**
 nginx isn't always needed I have left the dockerfiles in here but you can only run one nginx container at once on your machine anyway. Its useful though if you need a more complicated setup.
+
+## Connecting to the database with a gui etc
+
+If you have postgresql running disable it
+
+```sh
+brew services stop postgresql
+```
+
+host: localhost
+user: db_user
+password: db_password
+port: see below
+
+**Postgres port**
+Its setup to run on any open port to prevent clashes so to find out which port postgresql is on run this command or look in the docker app
+
+```sh
+docker ps -f "name=project_name-postgres"
+
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED       STATUS         PORTS                     NAMES
+778ddf748b45   project_name/postgres:development   "docker-entrypoint.s…"   10 days ago   Up 5 minutes   0.0.0.0:50379->5432/tcp   project_name-postgres
+```
+
+In this case the port is `50379`
+
+You can also use the docker app if the ports are `50379:5432` then the port we want to connect to is `50379`.
